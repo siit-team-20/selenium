@@ -34,8 +34,8 @@ public class GuestReservationTest {
 
     @AfterAll
 	public void finish() {
-		// webdriver.close();
-		// webdriver2.close();
+		webdriver.close();
+		webdriver2.close();
 	}
 
     @Test
