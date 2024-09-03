@@ -69,7 +69,7 @@ public class GuestReservationTest {
 
         guestReservations.cancelReservation();
 
-        String status = guestReservations.getStatus();
+        String status = guestReservations.getStatus("Promena Brisbane North Accommodation, Motel");
         assertThat(status).isEqualTo("Cancelled");
         
         ownerReservations.refresh();
@@ -119,6 +119,36 @@ public class GuestReservationTest {
 
         Navbar navbarOwner = new Navbar(wdOwner);
         navbarOwner.logOut();
+    }
+
+    @Test
+    @DisplayName("Guest reserves - automatic acceptance")
+    public void t3() {
+        WebDriver wdGuest = webdriver;
+        WebDriver wdOwner = webdriver2;
+
+        LoginPage loginGuest = new LoginPage(wdGuest);
+        LoginPage loginOwner = new LoginPage(wdOwner);
+
+        loginGuest.btnNavbarLogin_click();
+        loginGuest.login("guest_new@gmail.com", "guest");
+        
+        loginOwner.btnNavbarLogin_click();
+        loginOwner.login("owner@gmail.com", "owner");
+
+        GuestCreateReservation guestCreateReservation = new GuestCreateReservation(wdGuest);
+        guestCreateReservation.btnAcommodationDetailsAutomatic_click();
+        guestCreateReservation.enterFields("09-Sep-2024", "10-Sep-2024", 3);
+        guestCreateReservation.reserve();
+
+        GuestViewReservations guestReservations = new GuestViewReservations(wdGuest);
+        guestReservations.btnNavbarReservations_click();
+
+        String status = guestReservations.getStatus("test 1, Apartment");
+        assertThat(status).isEqualTo("Approved");
+
+        Navbar navbarGuest = new Navbar(wdGuest);
+        navbarGuest.logOut();
     }
 
     private void verifyReservation(GuestViewReservations g, String guestEmail, String startDate, String duration, int guestNumber, Double price) {

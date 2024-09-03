@@ -31,6 +31,10 @@ public class GuestCreateReservation {
 		(new WebDriverWait(webdriver, 10)).until(ExpectedConditions.elementToBeClickable(webdriver.findElement(By.xpath("//h4[normalize-space(text())='Promena Brisbane North Accommodation, Motel']/ancestor::div[3]//button[normalize-space(text())='More']")))).click();
 	}
 
+    public void btnAcommodationDetailsAutomatic_click() {
+		(new WebDriverWait(webdriver, 10)).until(ExpectedConditions.elementToBeClickable(webdriver.findElement(By.xpath("//h4[normalize-space(text())='test 1, Apartment']/ancestor::div[3]//button[normalize-space(text())='More']")))).click();
+	}
+
     public void enterFields(String availabilityStart, String availabilityEnd, int guestNumber) {
 		(new WebDriverWait(webdriver, 10)).until(ExpectedConditions.visibilityOf(inputStartDate)).clear();
         selectDate(inputStartDate, availabilityStart);

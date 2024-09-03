@@ -60,11 +60,11 @@ public class GuestViewReservations {
 		(new WebDriverWait(webdriver, 10)).until(ExpectedConditions.elementToBeClickable(webdriver.findElement(By.xpath("//h4[normalize-space(text())='Promena Brisbane North Accommodation, Motel']/ancestor::div[1]//button[contains(normalize-space(text()), 'Cancel')]")))).click();
     }
 
-    public String getStatus() {
+    public String getStatus(String text) {
         return (new WebDriverWait(webdriver, 10))
         .until(driver -> {
             WebElement element = driver.findElement(By.xpath(
-                "//h4[normalize-space(text())='Promena Brisbane North Accommodation, Motel']/ancestor::div[1]//p[contains(normalize-space(text()), 'Status:')]"
+                String.format("//h4[normalize-space(text())='%s']/ancestor::div[1]//p[contains(normalize-space(text()), 'Status:')]", text)
             ));
 
             if (element.isDisplayed() && !element.getText().contains("Waiting")) {
